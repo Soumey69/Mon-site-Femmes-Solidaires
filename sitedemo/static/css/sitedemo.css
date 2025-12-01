@@ -31,8 +31,8 @@ body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica
 main{padding:3rem 0}
 .intro{background:#fff; padding:1.5rem; border-radius:var(--radius); box-shadow:0 4px 18px rgba(13,17,23,0.04)}
 
-.services-teaser{margin-top:2rem}
-.services-teaser h2{margin-bottom:.5rem}
+.formations-teaser{margin-top:2rem}
+.formations-teaser h2{margin-bottom:.5rem}
 
 .contact-cta{margin:2rem 0; text-align:center}
 

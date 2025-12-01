@@ -12,6 +12,11 @@
     .contact-section {
         padding: 3rem 0;
     }
+    .contact-heading {
+        color: #d4183d; /* rouge foncé */
+        font-size: 1.15rem;
+        margin-bottom: 0.75rem;
+    }
 
     .contact-grid {
         margin-top: 2rem;
@@ -27,8 +32,22 @@
     }
 
     .contact-infos {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        border: 1px solid #e5e7eb;
         font-size: 0.95rem;
-        color: #4b5563;
+        color: #1f2933;
+    }
+
+    .contact-horaires {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        border: 1px solid #e5e7eb;
+        font-size: 0.95rem;
+        color: #1f2933;
+        margin-top: 30px;
     }
 
     .contact-card {
@@ -62,6 +81,13 @@
         resize: vertical;
     }
 
+    .contact-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #4b5563;
+        text-align: left;
+    }
+
     /* =======================
        Version mobile
        ======================= */
@@ -88,10 +114,9 @@
         </p>
 
         <div class="contact-grid">
-            <!-- Infos de contact -->
             <div>
-                <h2 style="font-size:1.15rem; margin-bottom:0.75rem;">Nous écrire</h2>
-
+            <!-- Colonne gauche : Infos de contact -->
+            <div class="contact-infos">
                 {% if page.contact_text %}
                     {{ page.contact_text|richtext }}
                 {% else %}
@@ -99,43 +124,61 @@
                         Ce formulaire peut vous servir de base pour une vraie page contact. Vous pourrez ensuite le relier à un modèle Wagtail ou à un système d’envoi d’email.
                     </p>
                 {% endif %}
+            <!-- ESPACE VISUEL -->
+            <div style="margin-bottom: 2rem;"></div>
 
-                <p class="contact-infos">
-                    <strong>Email :</strong>
-                    {{ page.contact_email|default:"contact@monsitepro.fr" }}<br>
-
-                    {% if page.contact_phone %}
-                        <strong>Téléphone :</strong> {{ page.contact_phone }}<br>
-                    {% else %}
-                        <strong>Téléphone :</strong> +33 6 12 34 56 78<br>
-                    {% endif %}
-
-                    <strong>Adresse :</strong>
-                    {{ page.contact_address|default:"123 Rue de l’Exemple, 75000 Paris" }}
-                </p>
+                <h3 class="contact-heading">Nos coordonnées</h3>
+                <p><strong>&#128205 Adresse :</strong> {{ page.contact_address|default:"12 rue de la Solidarité, 75000 Paris" }}</p>
+                <p><strong>&#x1F4DE Téléphone :</strong> {{ page.contact_phone|default:"+33 6 12 34 56 78" }}</p>
+                <p><strong>&#128231 Email :</strong> {{ page.contact_email|default:"contact@femmes-solidaires.fr" }}</p>
             </div>
 
-            <!-- Formulaire de contact (non fonctionnel pour l'instant) -->
+
+            
+            <div class="contact-horaires">
+                <h3 class="contact-heading">Horaires d'ouverture</h3>
+                <p>Lundi - Vendredi : 9h00 - 18h00</p>
+                <p>Samedi : 10h00 - 16h00</p>
+                <p>Dimanche : Fermé</p>
+
+               <!-- ESPACE VISUEL -->
+            <div style="margin-bottom: 2rem;"></div>
+
+                <h3 class="contact-heading">Permanences sans rendez-vous :</h3>
+                <p>Tous les mercredis de 14h à 17h</p>
+
+            </div>
+
+            <div style="margin-top:1.5rem;"></div>
+            </div>
+
+            <!-- Colonne droite : Formulaire -->
             <div class="contact-card">
+                <h3 class="contact-heading">Envoyez-nous un message</h3>
                 <form action="#" method="post">
                     {# En vrai avec Django/Wagtail : csrf_token, Form, etc. #}
                     <div class="contact-form-group">
-                        <label for="id_name" class="contact-label">Nom complet</label>
-                        <input id="id_name" name="name" type="text" required class="contact-input">
+                        <label for="id_name" class="contact-label">Votre nom *</label>
+                        <input id="id_name" name="name" type="text" required class="contact-input" placeholder="Sandra">
                     </div>
 
                     <div class="contact-form-group">
-                        <label for="id_email" class="contact-label">Email</label>
-                        <input id="id_email" name="email" type="email" required class="contact-input">
+                        <label for="id_email" class="contact-label">Votre email*</label>
+                        <input id="id_email" name="email" type="email" required class="contact-input" placeholder="contact@exemple.com">
+                    </div>
+
+                    <div class="contact-form-group">
+                        <label for="id_phone" class="contact-label">Votre téléphone*</label>
+                        <input id="id_phone" name="phone" type="tel" required class="contact-input" placeholder="06 12 34 56 78">
                     </div>
 
                     <div class="contact-form-group">
                         <label for="id_message" class="contact-label">Message</label>
-                        <textarea id="id_message" name="message" rows="4" required class="contact-textarea"></textarea>
+                        <textarea id="id_message" name="message" rows="4" required class="contact-textarea" placeholder="Parlez-nous de votre situation, de vos souhaits, de vos questions..."></textarea>
                     </div>
 
                     <button type="submit" class="btn-primary">
-                        Envoyer le message
+                        Envoyer
                     </button>
                 </form>
             </div>

@@ -14,7 +14,7 @@
     }
 
     .about-grid {
-        margin-top: 2rem;
+        margin-top: 0rem;
         display: grid;
         gap: 2rem;
         grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
@@ -71,9 +71,9 @@
         <h1 class="section-title">
             {{ page.intro_title|default:"À propos" }}
         </h1>
-        <p class="section-subtitle">
+        <h1 class="section-subtitle">
             {{ page.intro_subtitle|default:"Utilisez cette page pour présenter votre histoire, vos valeurs et votre vision." }}
-        </p>
+        </h1>
 
         <div class="about-grid">
             <!-- Texte de présentation -->
@@ -98,7 +98,7 @@
             <div class="about-image-card">
                 <div style="border-radius:1rem; overflow:hidden;">
                     {% if page.image %}
-                        {% image page.image fill-800x500 %}
+                        {% image page.image fill-350x250 %}
                     {% else %}
                         <img src="https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg"
                              alt="Équipe qui travaille ensemble">
@@ -106,7 +106,7 @@
                 </div>
                 <p class="about-caption">
                     {% if page.image_caption %}
-                        {{ page.image_caption }}
+                        <!-- {{ page.image_caption }}-->
                     {% else %}
                         Illustration d’exemple que vous pouvez remplacer par une photo qui représente mieux votre projet.
                     {% endif %}

@@ -1,50 +1,50 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags %}
 
-{% block title %}Nos services - Mon site vitrine{% endblock %}
+{% block title %}Nos formations - Mon site vitrine{% endblock %}
 
 {% block content %}
 <style>
     /* =======================
-       Styles page "Nos services"
+       Styles page "Nos formations"
        ======================= */
 
-    .services-section {
+    .formations-section {
         padding: 3rem 0;
     }
 
-    .services-list-grid {
+    .formations-list-grid {
         margin-top: 2rem;
         display: grid;
         gap: 1.5rem;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
 
-    .service-card-full {
+    .formation-card-full {
         background: white;
         border-radius: 1rem;
         padding: 1.5rem;
         border: 1px solid #e5e7eb;
     }
 
-    .service-card-full h2 {
+    .formation-card-full h2 {
         font-size: 1.15rem;
         margin-bottom: 0.5rem;
     }
 
-    .service-card-full p {
+    .formation-card-full p {
         font-size: 0.95rem;
         color: #4b5563;
         margin-bottom: 0.75rem;
     }
 
-    .service-features {
+    .formation-features {
         font-size: 0.9rem;
         color: #6b7280;
         margin-left: 1.1rem;
     }
 
-    .service-badge-full {
+    .formation-badge-full {
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.12em;
@@ -57,57 +57,57 @@
        ======================= */
 
     @media (max-width: 768px) {
-        .services-section {
+        .formations-section {
             padding: 2.5rem 0;
         }
 
-        .services-list-grid {
+        .formations-list-grid {
             grid-template-columns: 1fr;
         }
     }
 </style>
 
-<section class="services-section">
+<section class="formations-section">
     <div class="container">
         <!-- Titre et sous-titre venant du modèle -->
         <h1 class="section-title">
-            {{ page.intro_title|default:"Nos services" }}
+            {{ page.intro_title|default:"Nos formations" }}
         </h1>
         <p class="section-subtitle">
-            {{ page.intro_subtitle|default:"Retrouvez ici la liste complète des services proposés." }}
+            {{ page.intro_subtitle|default:"Retrouvez ici la liste complète des formations proposés." }}
         </p>
 
-        <div class="services-list-grid">
-            {% if page.services %}
-                {% for block in page.services %}
-                    {% if block.block_type == "service" %}
-                        {% with service=block.value %}
-                            <article class="service-card-full">
-                                {% if service.image %}
+        <div class="formations-list-grid">
+            {% if page.formations %}
+                {% for block in page.formations %}
+                    {% if block.block_type == "formation" %}
+                        {% with formation=block.value %}
+                            <article class="formation-card-full">
+                                {% if formation.image %}
                                     <div style="border-radius:0.9rem; overflow:hidden; margin-bottom:0.75rem;">
-                                        {% image service.image fill-600x350 %}
+                                        {% image formation.image fill-300x150 %}
                                     </div>
                                 {% endif %}
 
-                                {% if service.badge %}
-                                    <div class="service-badge-full">
-                                        {{ service.badge }}
+                                {% if formation.badge %}
+                                    <div class="formation-badge-full">
+                                        {{ formation.badge }}
                                     </div>
                                 {% endif %}
 
                                 <h2>
-                                    {{ service.title }}
+                                    {{ formation.title }}
                                 </h2>
 
-                                {% if service.description %}
+                                {% if formation.description %}
                                     <p>
-                                        {{ service.description }}
+                                        {{ formation.description }}
                                     </p>
                                 {% endif %}
 
-                                {% if service.features %}
-                                    <ul class="service-features">
-                                        {% for feature in service.features %}
+                                {% if formation.features %}
+                                    <ul class="formation-features">
+                                        {% for feature in formation.features %}
                                             <li>{{ feature }}</li>
                                         {% endfor %}
                                     </ul>
@@ -118,7 +118,7 @@
                 {% endfor %}
             {% else %}
                 <p style="color:#6b7280; font-size:0.95rem; margin-top:1.5rem;">
-                    Aucun service n’a encore été ajouté. Vous pouvez créer vos services dans l’admin Wagtail pour les voir apparaître ici.
+                    Aucun service n’a encore été ajouté. Vous pouvez créer vos formations dans l’admin Wagtail pour les voir apparaître ici.
                 </p>
             {% endif %}
         </div>

@@ -30,8 +30,8 @@
     .hero-overlay {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at top left, rgba(59,130,246,0.6), transparent),
-                    radial-gradient(circle at bottom right, rgba(79,70,229,0.6), transparent);
+        background: radial-gradient(circle at top left, #3b82f699, transparent),
+                    radial-gradient(circle at bottom right, #4d45e699, transparent);
         mix-blend-mode: soft-light;
         z-index: -1;
     }
@@ -81,24 +81,24 @@
     }
 
     .btn-secondary:hover {
-        background: rgba(17,24,39,0.85);
+        background: #111827d9;
     }
 
-    /* Section services sur la page d'accueil */
-    .home-services {
+    /* Section formations sur la page d'accueil */
+    .home-formations {
         background: white;
         padding: 3rem 0;
     }
 
-    .services-grid {
+    .formations-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
         gap: 1.5rem;
         margin-top: 2rem;
     }
 
-    /* Carte de service = lien cliquable avec image + overlay */
-    .service-card {
+    /* Carte de formation = lien cliquable avec image + overlay */
+    .formation-card {
         display: block;
         position: relative;
         border-radius: 1rem;
@@ -110,18 +110,18 @@
         transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
     }
 
-    .service-card:hover {
+    .formation-card:hover {
         transform: translateY(-4px);
         box-shadow: 0 14px 30px rgba(15, 23, 42, 0.25);
     }
 
-    .service-image-wrapper {
+    .formation-image-wrapper {
         position: relative;
         width: 100%;
         height: 100%;
     }
 
-    .service-image-wrapper img {
+    .formation-image-wrapper img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -130,13 +130,13 @@
         transition: transform 0.4s ease, filter 0.2s ease;
     }
 
-    .service-card:hover .service-image-wrapper img {
+    .formation-card:hover .formation-image-wrapper img {
         transform: scale(1.05);
         filter: brightness(0.9);
     }
 
     /* Overlay avec dégradé + titre par-dessus l'image */
-    .service-overlay {
+    .formation-overlay {
         position: absolute;
         inset: 0;
         display: flex;
@@ -152,7 +152,7 @@
         color: white;
     }
 
-    .service-badge {
+    .formation-badge {
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.12em;
@@ -160,19 +160,19 @@
         margin-bottom: 0.25rem;
     }
 
-    .service-title {
+    .formation-title {
         font-size: 1.1rem;
         font-weight: 600;
         margin-bottom: 0.1rem;
     }
 
-    .service-subtext {
+    .formation-subtext {
         font-size: 0.8rem;
         color: #e5e7eb;
         opacity: 0.85;
     }
 
-    .service-placeholder {
+    .formation-placeholder {
         width: 100%;
         height: 100%;
         min-height: 220px;
@@ -214,11 +214,11 @@
             gap: 0.8rem;
         }
 
-        .services-grid {
+        .formations-grid {
             grid-template-columns: 1fr;
         }
 
-        .home-services {
+        .home-formations {
             padding: 2.5rem 0;
         }
     }
@@ -267,40 +267,40 @@
     </div>
 </section>
 
-<!-- Préview de nos services sur la page d'accueil -->
-<section class="home-services">
+<!-- Préview de nos formations sur la page d'accueil -->
+<section class="home-formations">
     <div class="container">
         <h2 class="section-title">
-            {{ page.services_preview_title|default:"Nos services" }}
+            {{ page.formations_preview_title|default:"Nos formations" }}
         </h2>
         <p class="section-subtitle">
-            {{ page.services_preview_intro|default:"Découvrez en un coup d’œil les principaux services proposés." }}
+            {{ page.formations_preview_intro|default:"Découvrez en un coup d’œil les principaux formations proposés." }}
         </p>
 
-        {# On boucle sur le StreamField "services_preview" défini dans HomePage #}
-        {% if page.services_preview %}
-            <div class="services-grid">
-                {% for block in page.services_preview %}
-                    {% if block.block_type == "service" %}
-                        {% with service=block.value %}
-                            {# Toute la carte est cliquable et renvoie vers la page "Nos services" #}
-                            <a href="/nos-services/" class="service-card">
-                                <div class="service-image-wrapper">
-                                    {% if service.image %}
-                                        {# Image choisie dans Wagtail pour ce service #}
-                                        {% image service.image fill-600x350 %}
+        {# On boucle sur le StreamField "formations_preview" défini dans HomePage #}
+        {% if page.formations_preview %}
+            <div class="formations-grid">
+                {% for block in page.formations_preview %}
+                    {% if block.block_type == "formation" %}
+                        {% with formation=block.value %}
+                            {# Toute la carte est cliquable et renvoie vers la page "Nos formations" #}
+                            <a href="/nos-formations/" class="formation-card">
+                                <div class="formation-image-wrapper">
+                                    {% if formation.image %}
+                                        {# Image choisie dans Wagtail pour ce formation #}
+                                        {% image formation.image fill-600x350 %}
                                     {% else %}
                                         {# Si pas d'image : un joli dégradé en fond #}
-                                        <div class="service-placeholder"></div>
+                                        <div class="formation-placeholder"></div>
                                     {% endif %}
 
-                                    <div class="service-overlay">
-                                        {% if service.badge %}
-                                            <div class="service-badge">{{ service.badge }}</div>
+                                    <div class="formation-overlay">
+                                        {% if formation.badge %}
+                                            <div class="formation-badge">{{ formation.badge }}</div>
                                         {% endif %}
-                                        <h3 class="service-title">{{ service.title }}</h3>
-                                        <p class="service-subtext">
-                                            Voir ce service en détail →
+                                        <h3 class="formation-title">{{ formation.title }}</h3>
+                                        <p class="formation-subtext">
+                                            Voir ce formation en détail →
                                         </p>
                                     </div>
                                 </div>
@@ -311,7 +311,7 @@
             </div>
         {% else %}
             <p style="margin-top:1.5rem; color:#6b7280; font-size:0.9rem;">
-                Aucun service n’est encore configuré. Vous pouvez ajouter vos services depuis l’admin Wagtail.
+                Aucun formation n’est encore configuré. Vous pouvez ajouter vos formations depuis l’admin Wagtail.
             </p>
         {% endif %}
 

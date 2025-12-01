@@ -10,23 +10,25 @@ from wagtail.admin.panels import (
     PageChooserPanel,
 )
 from wagtail.images.models import Image
-from wagtail.images.blocks import ImageChooserBlock   # ✅ pour l'image dans chaque service
+from wagtail.images.blocks import ImageChooserBlock   # ✅ pour l'image dans chaque formation
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+
 
 
 # ============================================================
-# 1) Bloc réutilisable pour décrire un service
+# 1) Bloc réutilisable pour décrire une formation
 #    -> utilisé sur la page d'accueil (aperçu)
-#    -> utilisé sur la page "Nos services" (liste complète)
-#    Chaque service a maintenant :
+#    -> utilisé sur la page "Nos formations" (liste complète)
+#    Chaque formation a maintenant :
 #      - un badge/numéro
 #      - un titre
 #      - une description
 #      - une liste de points clés
 #      - UNE IMAGE
 # ============================================================
-class ServiceBlock(blocks.StructBlock):
+class FormationBlock(blocks.StructBlock):
     """
-    Bloc "Service" pour StreamField.
+    Bloc "Formation" pour StreamField.
     On pourra en ajouter plusieurs dans l'admin Wagtail.
     """
 
@@ -39,7 +41,7 @@ class ServiceBlock(blocks.StructBlock):
     title = blocks.CharBlock(
         required=True,
         max_length=120,
-        label="Titre du service"
+        label="Titre du formation"
     )
 
     description = blocks.TextBlock(
@@ -47,11 +49,11 @@ class ServiceBlock(blocks.StructBlock):
         label="Description courte"
     )
 
-    # ✅ Nouvelle image pour chaque service (illustration moderne)
+    # ✅ Nouvelle image pour chaque formation (illustration moderne)
     image = ImageChooserBlock(
         required=False,
-        help_text="Image ou icône illustrant le service (format horizontal de préférence).",
-        label="Image du service"
+        help_text="Image ou icône illustrant le formation (format horizontal de préférence).",
+        label="Image du formation"
     )
 
     features = blocks.ListBlock(
@@ -62,14 +64,14 @@ class ServiceBlock(blocks.StructBlock):
 
     class Meta:
         icon = "cog"
-        label = "Service"
-        help_text = "Bloc réutilisable pour présenter un service avec une image."
+        label = "Formation"
+        help_text = "Bloc réutilisable pour présenter un formation avec une image."
 
 
 # ============================================================
 # 2) Page d'accueil
 #    - hero (image + texte + boutons)
-#    - aperçu de 2–3 services
+#    - aperçu de 2–3 formations
 # ============================================================
 class HomePage(Page):
     # --------- HERO (bandeau principal avec image) ----------
@@ -139,29 +141,29 @@ class HomePage(Page):
         help_text="Page vers laquelle le bouton secondaire redirige (ex : Contact).",
     )
 
-    # --------- SECTION "APERÇU DES SERVICES" ----------
-    services_preview_title = models.CharField(
-        "Titre de la section services (accueil)",
+    # --------- SECTION "APERÇU DES formations" ----------
+    formations_preview_title = models.CharField(
+        "Titre de la section formations (accueil)",
         max_length=150,
-        default="Nos services",
+        default="Nos formations",
     )
 
-    services_preview_intro = models.TextField(
-        "Texte d’intro de la section services (accueil)",
+    formations_preview_intro = models.TextField(
+        "Texte d’intro de la section formations (accueil)",
         blank=True,
-        default="Un aperçu rapide de nos services.",  # ✅ default
-        help_text="Petite phrase pour introduire les services."
+        default="Un aperçu rapide de nos formations.",  # ✅ default
+        help_text="Petite phrase pour introduire les formations."
     )
 
-    # StreamField utilisant notre bloc ServiceBlock (avec image)
-    services_preview = StreamField(
+    # StreamField utilisant notre bloc SormationBlock (avec image)
+    formations_preview = StreamField(
         [
-            ("service", ServiceBlock()),
+            ("formation", FormationBlock()),
         ],
         blank=True,
         use_json_field=True,
-        verbose_name="Services à afficher sur l’accueil (aperçu)",
-        #help_text="Liste de 2–3 services pour la page d’accueil.",
+        verbose_name="Formations à afficher sur l’accueil (aperçu)",
+        #help_text="Liste de 2–3 formations pour la page d’accueil.",
     )
 
     # --------- PANELS POUR L'ADMIN WAGTAIL ----------
@@ -181,48 +183,48 @@ class HomePage(Page):
         ),
         MultiFieldPanel(
             [
-                FieldPanel("services_preview_title"),
-                FieldPanel("services_preview_intro"),
-                FieldPanel("services_preview"),
+                FieldPanel("formations_preview_title"),
+                FieldPanel("formations_preview_intro"),
+                FieldPanel("formations_preview"),
             ],
-            heading="Aperçu des services sur la page d’accueil",
+            heading="Aperçu des formations sur la page d’accueil",
         ),
     ]
 
 
 # ============================================================
-# 3) Page "Nos services"
-#    - même bloc ServiceBlock, mais pour la liste complète
+# 3) Page "Nos formations"
+#    - même bloc FormationBlock, mais pour la liste complète
 # ============================================================
-class ServicesPage(Page):
+class FormationsPage(Page):
     intro_title = models.CharField(
         "Titre principal",
         max_length=150,
-        default="Nos services",
+        default="Nos formations",
     )
 
     intro_subtitle = models.TextField(
         "Texte d’intro",
         blank=True,
-        default="Voici un exemple de section services que vous pouvez adapter.",  # ✅ default
-        help_text="Ex : 'Voici un exemple de section services...'"
+        default="Voici un exemple de section formations que vous pouvez adapter.",  # ✅ default
+        help_text="Ex : 'Voici un exemple de section formations...'"
     )
 
-    # On réutilise le même bloc ServiceBlock avec image
-    services = StreamField(
+    # On réutilise le même bloc FormationBlock avec image
+    formations = StreamField(
         [
-            ("service", ServiceBlock()),
+            ("formation", FormationBlock()),
         ],
         blank=True,
         use_json_field=True,
-        verbose_name="Services",
-        help_text="Liste complète des services proposés.",
+        verbose_name="Formations",
+        help_text="Liste complète des formations proposés.",
     )
 
     content_panels = Page.content_panels + [
         FieldPanel("intro_title"),
         FieldPanel("intro_subtitle"),
-        FieldPanel("services"),
+        FieldPanel("formations"),
     ]
 
 
@@ -340,4 +342,43 @@ class ContactPage(Page):
         ),
         FieldPanel("contact_text"),
     ]
+
+@register_setting
+class FooterSettings(BaseSiteSetting):
+    logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="Logo de l'association"
+    )
+    nom_association = models.CharField(
+        max_length=100,
+        default="Femmes Solidaires",
+        verbose_name="Nom de l'association"
+    )
+    slogan = models.CharField(
+        max_length=100,
+        default="Formation · Emploi · Solidarité",
+        verbose_name="Slogan"
+    )
+    description = models.TextField(
+        default="Association locale engagée pour l’émancipation des femmes par la formation et l’emploi. Ensemble, construisons votre avenir.",
+        verbose_name="Texte de présentation"
+    )
+    annee = models.CharField(
+        max_length=4,
+        default="2025",
+        verbose_name="Année affichée en bas"
+    )
+
+    panels = [
+        FieldPanel("logo"),
+        FieldPanel("nom_association"),
+        FieldPanel("slogan"),
+        FieldPanel("description"),
+        FieldPanel("annee"),
+    ]
+
 # Fin de models.py
