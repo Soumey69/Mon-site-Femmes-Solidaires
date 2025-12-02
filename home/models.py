@@ -1,6 +1,6 @@
 # models.py
 from django.db import models
-
+from django import forms
 from wagtail.models import Page
 from wagtail.fields import RichTextField, StreamField
 from wagtail import blocks
@@ -405,6 +405,20 @@ class ContactPage(AbstractEmailForm):
     submissions_panels = [
         FormSubmissionsPanel(),
     ]
+    # 👉 Ici, à l’intérieur de la classe
+    def get_form_class(self):
+        form_class = super().get_form_class()
+
+        class CustomForm(form_class):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+
+                # Utiliser le help_text comme placeholder
+                for field_name, field in self.fields.items():
+                    if field.help_text:
+                        field.widget.attrs['placeholder'] = field.help_text
+
+        return CustomForm
 
 
 @register_setting

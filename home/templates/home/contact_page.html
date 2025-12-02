@@ -199,20 +199,25 @@
                 <form action="{% pageurl page %}" method="post">
                     {% csrf_token %}
 
-                    {# Affichage des erreurs globales #}
-                    {% if form.non_field_errors %}
-                        <div class="form-errors">
-                            {{ form.non_field_errors }}
+                    {% for field in form %}
+                        <div class="contact-form-group">
+                            <label for="{{ field.id_for_label }}" class="contact-label">
+                                {{ field.label }}{% if field.field.required %} *{% endif %}
+                            </label>
+                            {{ field }}  {# input ou textarea avec placeholder #}
+
+                            {# ⚠️ Supprimer cette ligne si tu ne veux plus le help_text en bas #}
+                            {# <small class="help-text">{{ field.help_text }}</small> #}
+
+                            {% if field.errors %}
+                                <div class="form-errors">{{ field.errors }}</div>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                    {% endfor %}
 
-                    {# Affichage des champs créés dans l'admin Wagtail #}
-                    {{ form.as_p }}
-
-                    <button type="submit" class="btn-primary">
-                        Envoyer le message
-                    </button>
+                    <button type="submit" class="btn-primary">Envoyer le message</button>
                 </form>
+
             </div>
         </div>
     </div>
