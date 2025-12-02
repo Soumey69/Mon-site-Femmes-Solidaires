@@ -14,7 +14,6 @@ from wagtail.images.blocks import ImageChooserBlock   # ✅ pour l'image dans ch
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 
-
 # ============================================================
 # 1) Bloc réutilisable pour décrire une formation
 #    -> utilisé sur la page d'accueil (aperçu)
