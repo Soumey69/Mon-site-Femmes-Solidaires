@@ -8,11 +8,16 @@ from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
     PageChooserPanel,
+    InlinePanel,
 )
 from wagtail.images.models import Image
 from wagtail.images.blocks import ImageChooserBlock   # ✅ pour l'image dans chaque formation
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
+# Pour la page contact avec formulaire email
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
+from modelcluster.fields import ParentalKey
 
 # ============================================================
 # 1) Bloc réutilisable pour décrire une formation
@@ -282,12 +287,22 @@ class AboutPage(Page):
 
 
 # ============================================================
-# 5) Page "Contact"
+# 5) Champs des formulaires (Wagtail Forms) pour la page Contact
+# ============================================================
+class FormField(AbstractFormField):
+    page = ParentalKey(
+        "ContactPage",
+        on_delete=models.CASCADE,
+        related_name="form_fields",
+    )
+
+# ============================================================
+# 6) Page "Contact"
 #    - titre + intro
 #    - coordonnées de contact
 #    - texte d’explication au-dessus du formulaire
 # ============================================================
-class ContactPage(Page):
+class ContactPage(AbstractEmailForm):
     intro_title = models.CharField(
         "Titre principal",
         max_length=150,
@@ -328,19 +343,69 @@ class ContactPage(Page):
         help_text='Ex : "Utilisez ce formulaire comme base..."'
     )
 
-    content_panels = Page.content_panels + [
-        FieldPanel("intro_title"),
-        FieldPanel("intro_subtitle"),
+     # Configuration email (où vont les messages)
+    to_address = models.CharField(
+        "Adresse email qui recevra les messages",
+        max_length=255,
+        blank=False,
+        default="contact@exemple.com",
+        help_text="Les messages du formulaire seront envoyés à cette adresse.",
+    )
+
+    from_address = models.CharField(
+        "Adresse expéditeur",
+        max_length=255,
+        default="noreply@monsite.com",
+        help_text="Adresse utilisée comme expéditeur des emails.",
+    )
+
+    subject = models.CharField(
+        "Sujet de l’email",
+        max_length=255,
+        default="Nouveau message depuis votre site vitrine",
+    )
+
+    thank_you_text = RichTextField(
+        "Message de remerciement après envoi",
+        blank=True,
+        default="Merci ! Votre message a bien été envoyé.",
+    )
+
+
+    content_panels = AbstractEmailForm.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("intro_title"),
+                FieldPanel("intro_subtitle"),
+                FieldPanel("contact_text"),
+            ],
+            heading="Introduction",
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("contact_email"),
                 FieldPanel("contact_phone"),
                 FieldPanel("contact_address"),
             ],
-            heading="Coordonnées",
+            heading="Coordonnées affichées",
         ),
-        FieldPanel("contact_text"),
+        MultiFieldPanel(
+            [
+                FieldPanel("to_address"),
+                FieldPanel("from_address"),
+                FieldPanel("subject"),
+            ],
+            heading="Configuration des emails",
+        ),
+        InlinePanel("form_fields", label="Champs du formulaire"),
+        FieldPanel("thank_you_text"),
     ]
+
+    # Onglet "Submissions" dans l’admin (facultatif mais pratique)
+    submissions_panels = [
+        FormSubmissionsPanel(),
+    ]
+
 
 @register_setting
 class FooterSettings(BaseSiteSetting):

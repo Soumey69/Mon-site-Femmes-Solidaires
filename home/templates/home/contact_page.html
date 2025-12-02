@@ -88,6 +88,48 @@
         text-align: left;
     }
 
+    /* Style général pour les champs du formulaire Wagtail */
+    form p {
+        margin-bottom: 1rem;
+    }
+
+    form label {
+        display: block;
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+        font-weight: 500;
+        color: #374151;
+    }
+
+    /* Style inputs et textarea */
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="tel"],
+    form textarea,
+    form select {
+        width: 100%;
+        padding: 0.6rem 0.75rem;
+        border-radius: 0.75rem;
+        border: 1px solid #d1d5db;
+        font-size: 0.9rem;
+        font-family: inherit;
+        background: white;
+    }
+
+    /* Effet focus */
+    form input:focus,
+    form textarea:focus,
+    form select:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Unifier le bouton si Django génère un <input type="submit"> */
+    form input[type="submit"] {
+        margin-top: 1rem;
+    }
+
     /* =======================
        Version mobile
        ======================= */
@@ -152,33 +194,23 @@
             <div style="margin-top:1.5rem;"></div>
             </div>
 
-            <!-- Colonne droite : Formulaire -->
+            <!-- Formulaire de contact Wagtail (fonctionnel) -->
             <div class="contact-card">
-                <h3 class="contact-heading">Envoyez-nous un message</h3>
-                <form action="#" method="post">
-                    {# En vrai avec Django/Wagtail : csrf_token, Form, etc. #}
-                    <div class="contact-form-group">
-                        <label for="id_name" class="contact-label">Votre nom *</label>
-                        <input id="id_name" name="name" type="text" required class="contact-input" placeholder="Sandra">
-                    </div>
+                <form action="{% pageurl page %}" method="post">
+                    {% csrf_token %}
 
-                    <div class="contact-form-group">
-                        <label for="id_email" class="contact-label">Votre email*</label>
-                        <input id="id_email" name="email" type="email" required class="contact-input" placeholder="contact@exemple.com">
-                    </div>
+                    {# Affichage des erreurs globales #}
+                    {% if form.non_field_errors %}
+                        <div class="form-errors">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
 
-                    <div class="contact-form-group">
-                        <label for="id_phone" class="contact-label">Votre téléphone*</label>
-                        <input id="id_phone" name="phone" type="tel" required class="contact-input" placeholder="06 12 34 56 78">
-                    </div>
-
-                    <div class="contact-form-group">
-                        <label for="id_message" class="contact-label">Message</label>
-                        <textarea id="id_message" name="message" rows="4" required class="contact-textarea" placeholder="Parlez-nous de votre situation, de vos souhaits, de vos questions..."></textarea>
-                    </div>
+                    {# Affichage des champs créés dans l'admin Wagtail #}
+                    {{ form.as_p }}
 
                     <button type="submit" class="btn-primary">
-                        Envoyer
+                        Envoyer le message
                     </button>
                 </form>
             </div>
