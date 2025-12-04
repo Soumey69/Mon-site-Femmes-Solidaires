@@ -88,6 +88,15 @@
         text-align: left;
     }
 
+    .spacer-bottom {
+    margin-bottom: 2rem;
+    }
+
+    .spacer-top {
+    margin-top: 1.5rem;
+    }
+
+
     /* Style général pour les champs du formulaire Wagtail */
     form p {
         margin-bottom: 1rem;
@@ -167,7 +176,8 @@
                     </p>
                 {% endif %}
             <!-- ESPACE VISUEL -->
-            <div style="margin-bottom: 2rem;"></div>
+            <div class="spacer-bottom"></div>
+
 
                 <h3 class="contact-heading">Nos coordonnées</h3>
                 <p><strong>&#128205 Adresse :</strong> {{ page.contact_address|default:"12 rue de la Solidarité, 75000 Paris" }}</p>
@@ -184,14 +194,15 @@
                 <p>Dimanche : Fermé</p>
 
                <!-- ESPACE VISUEL -->
-            <div style="margin-bottom: 2rem;"></div>
+            <div class="spacer-bottom"></div>
 
                 <h3 class="contact-heading">Permanences sans rendez-vous :</h3>
                 <p>Tous les mercredis de 14h à 17h</p>
 
             </div>
 
-            <div style="margin-top:1.5rem;"></div>
+            <div class="spacer-top"></div>
+
             </div>
             
             <!-- Formulaire de contact Wagtail (fonctionnel) -->
