@@ -87,7 +87,17 @@
             .nav-links { flex-wrap: wrap; }
             .footer-top { flex-direction: column; }
         }
-        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -145,10 +155,17 @@
                 <h4>Suivez-nous</h4>
                 <p style="font-size:0.75rem; color:#e5e7eb;">Retrouvez-nous sur les réseaux sociaux :</p>
                 <div class="social-icons">
-                    <a href="#" class="social-icon" aria-label="Facebook">F</a>
-                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
-                    <a href="#" class="social-icon" aria-label="Instagram">IG</a>
-                </div>
+                <a href="https://facebook.com/femmessolidaires" class="social-icon" aria-label="Page Facebook Femmes Solidaires">
+                    <span class="sr-only">Facebook</span>F
+                </a>
+                <a href="https://linkedin.com/company/femmessolidaires" class="social-icon" aria-label="Page LinkedIn Femmes Solidaires">
+                    <span class="sr-only">LinkedIn</span>in
+                </a>
+                <a href="https://instagram.com/femmessolidaires" class="social-icon" aria-label="Page Instagram Femmes Solidaires">
+                    <span class="sr-only">Instagram</span>IG
+                </a>
+            </div>
+
             </div>
         </div>
 
