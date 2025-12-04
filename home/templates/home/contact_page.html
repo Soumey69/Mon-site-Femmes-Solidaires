@@ -200,8 +200,13 @@
 
                 <h2 class="contact-heading h2">Nos coordonnées</h2>
                 <p><strong>&#128205 Adresse :</strong> {{ page.contact_address|default:"12 rue de la Solidarité, 75000 Paris" }}</p>
-                <p><strong>&#x1F4DE Téléphone :</strong> {{ page.contact_phone|default:"+33 6 12 34 56 78" }}</p>
-                <p><strong>&#128231 Email :</strong> {{ page.contact_email|default:"contact@femmes-solidaires.fr" }}</p>
+                <p><strong>&#x1F4DE Téléphone :</strong>
+                <a href="tel:+33612345678">{{ page.contact_phone|default:"+33 6 12 34 56 78" }}</a>
+                </p>
+                <p><strong>&#128231 Email :</strong>
+                <a href="mailto:contact@femmes-solidaires.fr">{{ page.contact_email|default:"contact@femmes-solidaires.fr" }}</a>
+                </p>
+
             </div>
 
 
