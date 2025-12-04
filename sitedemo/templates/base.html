@@ -87,6 +87,7 @@
             .nav-links { flex-wrap: wrap; }
             .footer-top { flex-direction: column; }
         }
+        
     </style>
 </head>
 <body>
@@ -119,7 +120,7 @@
         <div class="footer-top">
             <div class="footer-column">
                 {% if footer.logo %}
-                    <img src="{{ footer.logo.url }}" alt="Logo {{ footer.nom_association }}" style="max-height:60px; margin-bottom:10px;">
+                    <img src="{{ footer.logo.url }}" alt="Logo de {{ footer.nom_association }}" style="max-height:60px; margin-bottom:10px;">
                 {% endif %}
                 <h4>{{ footer.nom_association }}</h4>
                 <p style="font-size:0.75rem; color:#e5e7eb; margin-bottom:0.5rem;">{{ footer.slogan }}</p>
