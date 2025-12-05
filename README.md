@@ -120,8 +120,9 @@ Accéder au site : ➡️ http://127.0.0.1:8000/
 Accéder à l’administration : ➡️ http://127.0.0.1:8000/admin/
 
 ## 📌 4. Structure du projet
-```Code
+
 Voici les fichiers les plus importants du projet :
+```Code
 
 home/
 │
@@ -139,6 +140,7 @@ femmes_solidaires/
        ├── base.html           ← Structure globale (header, footer)
        └── ...
 ```
+
 
 
 
