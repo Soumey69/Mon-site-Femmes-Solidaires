@@ -36,7 +36,9 @@ python --version
 ```
 
 Vérifiez Git :
+```
 git --version
+```
 
 ## 📌 2. Cloner le projet depuis GitHub
 
@@ -109,6 +111,7 @@ femmes_solidaires/
    └── templates/
        ├── base.html           ← Structure globale (header, footer)
        └── ...
+
 
 
 
