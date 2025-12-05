@@ -29,7 +29,8 @@ Avant de commencer, assurez-vous d’avoir installé :
 - VS Code (ou tout autre éditeur de code)  
 - Une connexion internet  
 
-Vérifiez que Python fonctionne :  
+Vérifiez que Python fonctionne : 
+
 ```bash
 python --version
 
@@ -105,4 +106,5 @@ femmes_solidaires/
    └── templates/
        ├── base.html           ← Structure globale (header, footer)
        └── ...
+
 
