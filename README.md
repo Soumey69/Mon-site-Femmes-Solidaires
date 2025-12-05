@@ -1,6 +1,4 @@
-﻿# Femmes Solidaires 
- 
-# 📖 Femmes Solidaires
+﻿# 📖 Femmes Solidaires
 
 ## 🌟 Introduction
 
@@ -141,6 +139,7 @@ femmes_solidaires/
        ├── base.html           ← Structure globale (header, footer)
        └── ...
 ```
+
 
 
 
