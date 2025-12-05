@@ -36,7 +36,8 @@ python --version
 Vérifiez Git :
 git --version
 
-📌 2. Cloner le projet depuis GitHub
+## 📌 2. Cloner le projet depuis GitHub
+
 2.1. Copier l’URL du dépôt
 Cliquez sur Code → Copy dans GitHub pour récupérer l’URL du dépôt.
 
@@ -56,7 +57,7 @@ cd femmes-solidaires
 2.3. Ouvrir dans VS Code
 code .
 
-📌 3. Installer et lancer le projet
+## 📌 3. Installer et lancer le projet
 3.1. Créer un environnement virtuel
 python -m venv venv
 
@@ -87,7 +88,7 @@ Accéder au site : ➡️ http://127.0.0.1:8000/
 
 Accéder à l’administration : ➡️ http://127.0.0.1:8000/admin/
 
-📌 4. Structure du projet
+## 📌 4. Structure du projet
 Voici les fichiers les plus importants du projet :
 home/
 │
@@ -104,3 +105,4 @@ femmes_solidaires/
    └── templates/
        ├── base.html           ← Structure globale (header, footer)
        └── ...
+
