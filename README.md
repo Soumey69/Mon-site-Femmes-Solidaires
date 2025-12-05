@@ -33,19 +33,20 @@ Vérifiez que Python fonctionne :
 
 ```bash
 python --version
+```
 
 Vérifiez Git :
 git --version
 
 ## 📌 2. Cloner le projet depuis GitHub
 
-2.1. Copier l’URL du dépôt
+## 2.1. Copier l’URL du dépôt
 Cliquez sur Code → Copy dans GitHub pour récupérer l’URL du dépôt.
 
 Exemple :
 https://github.com/votrecompte/femmes-solidaires.git
 
-2.2. Ouvrir un terminal et cloner
+## 2.2. Ouvrir un terminal et cloner
 Placez-vous dans le dossier où vous souhaitez mettre votre projet :
 cd C:\Users\VotreNom\Documents
 
@@ -55,7 +56,7 @@ git clone https://github.com/votrecompte/femmes-solidaires.git
 Entrez dans le projet :
 cd femmes-solidaires
 
-2.3. Ouvrir dans VS Code
+## 2.3. Ouvrir dans VS Code
 code .
 
 ## 📌 3. Installer et lancer le projet
@@ -63,26 +64,27 @@ code .
 python -m venv venv
 
 Activer :
-* **Windows** :
+**Windows** :
 venv\Scripts\Activate.ps1
 
-* **macOS / Linux** :
+**macOS / Linux** :
 source venv/bin/activate
 
-3.2. Installer les dépendances
+## 3.2. Installer les dépendances
+
 Si le projet contient un requirements.txt :
 pip install -r requirements.txt
 
 Sinon :
 pip install "Django>=5.2,<5.3" "wagtail>=7.2,<7.3"
 
-3.3. Appliquer les migrations
+## 3.3. Appliquer les migrations
 python manage.py migrate
 
-3.4. Créer un utilisateur admin
+## 3.4. Créer un utilisateur admin
 python manage.py createsuperuser
 
-3.5. Lancer le serveur
+## 3.5. Lancer le serveur
 python manage.py runserver
 
 Accéder au site : ➡️ http://127.0.0.1:8000/
@@ -90,6 +92,7 @@ Accéder au site : ➡️ http://127.0.0.1:8000/
 Accéder à l’administration : ➡️ http://127.0.0.1:8000/admin/
 
 ## 📌 4. Structure du projet
+
 Voici les fichiers les plus importants du projet :
 home/
 │
@@ -106,5 +109,6 @@ femmes_solidaires/
    └── templates/
        ├── base.html           ← Structure globale (header, footer)
        └── ...
+
 
 
