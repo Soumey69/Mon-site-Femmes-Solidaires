@@ -256,6 +256,16 @@
     </div>
     {% endwith %}
 </footer>
+<script>
+  const toggleButton = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('#primary-nav');
+
+  toggleButton.addEventListener('click', () => {
+    const isCollapsed = navLinks.getAttribute('data-collapsed') === 'true';
+    navLinks.setAttribute('data-collapsed', isCollapsed ? 'false' : 'true');
+    toggleButton.setAttribute('aria-expanded', !isCollapsed);
+  });
+</script>
 
 </body>
 </html>
